@@ -1,0 +1,566 @@
+Guide to Python's __init__ Constructor Function
+
+__init__
+And so this is a special reserved function inside the Python language though do 
+not create your own function called init. This is something that's available to 
+classes and the way that constructor functions like init work is that this is a 
+function that will be automatically called whenever you instantiate the class.
+
+
+class Invoice:
+  def __init__(self, client, total):
+    self.client = client
+    self.total = total
+
+  def formatter(self):
+    return f'{self.client} owes: ${self.total}'
+
+
+google = Invoice('Google', 100)
+snapchat = Invoice('SnapChat', 200)
+
+print(google.formatter())
+print(snapchat.formatter())
+>>>
+C:\Users\elena\OneDrive\Documents\python-env>py -m pipenv shell
+Launching subshell in virtual environment…
+Microsoft Windows [Version 10.0.18362.418]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Google owes: $100
+SnapChat owes: $200
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+
+
+
+How to Get and Set Data in a Python Class
+
+class Invoice:
+  def __init__(self, client, total):
+    self.client = client
+    self.total = total
+
+  def formatter(self):
+    return f'{self.client} owes: ${self.total}'
+
+
+google = Invoice('Google', 100)
+
+print(google.client)
+
+google.client = 'Yahoo'
+
+print(google.client)
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Google
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Google
+100
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Google
+Yahoo
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>  
+>>> WORKS THE SAME>>>>>>
+class Invoice:
+  def __init__(butt, x, y):
+    butt.x = x
+    butt.y = y
+
+  def formatter(butt):
+    return f'{butt.x} owes: ${butt.y}'
+
+
+google = Invoice('Google', 100)
+
+print(google.x)
+
+google.x = 'Yahoo'
+
+print(google.x)
+>>> WORKED THE SAME BUT SHOULS HAVE "SELF">>>>
+{
+	"resource": "/C:/Users/elena/OneDrive/Documents/python-env/invoice.py",
+	"owner": "python",
+	"code": "no-self-argument",
+	"severity": 8,
+	"message": "Method should have \"self\" as first argument",
+	"source": "pylint",
+	"startLineNumber": 2,
+	"startColumn": 3,
+	"endLineNumber": 2,
+	"endColumn": 3
+}
+
+
+How to Work with Python Properties and Decorators @@@@@DECORATORS@@@@@
+
+class Invoice:
+
+    def __init__(self, client, total):
+        self._client = client
+        self._total = total
+
+    def formatter(self):
+        return f'{self._client} owes: ${self._total}'
+
+    @property
+    def client(self):
+        return self._client
+
+    @client.setter
+    def client(self, client):
+        self._client = client
+
+    @property
+    def total(self):
+        return self._total
+
+google = Invoice('Google', 100)
+
+print(google.client)
+
+google.client = 'Yahoo'
+
+print(google.client)
+
+
+Overview of Dunder Methods in Python: __init__
+
+Once again the Dunder methods are the methods that start with double underscores 
+have some method names such as init and then they end with two more double 
+underscores (_init_) and if you're relatively new to Python or programming 
+in general then this type of syntax may look very odd to you.
+
+class Invoice:
+  def __str__(self):
+    return "This is the invoice class!"
+
+
+inv = Invoice()
+print(str(inv))
+
+class Invoice:
+  def __init__(self, client, total):
+    self.client = client
+    self.total = total
+
+  def __str__(self):
+    return f"Invoice from {self.client} for {self.total}"
+
+
+inv = Invoice('Google', 500)
+print(str(inv))
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+This is the invoice class!
+Invoice from Google for 500
+>>>{
+	"resource": "/C:/Users/elena/OneDrive/Documents/python-env/invoice.py",
+	"owner": "python",
+	"code": "function-redefined",
+	"severity": 8,
+	"message": "class already defined line 1",
+	"source": "pylint",
+	"startLineNumber": 9,
+	"startColumn": 1,
+	"endLineNumber": 9,
+	"endColumn": 1
+}
+
+
+Overview of Dunder Methods in Python: __repr__
+
+In the last guide, we walked through the Dunder string method and the goal 
+of Dunder string once again is to give some pretty output for the values and 
+the details with our class.
+
+
+Now there is a very similar method and it's called Dunder repr and that's 
+what we'll talk about in this guide. If you have never seen it before it is 
+very similar to Dunder string with the key difference being that usually Dunder 
+repr is used more for raw output so you usually do not format it nicely. It's 
+something that you would do like output to your logs or to an error log or 
+something like that.
+
+
+class Invoice:
+  def __init__(self, client, total):
+    self.client = client
+    self.total = total
+
+  def __str__(self):
+    return f"Invoice from {self.client} for {self.total}"
+
+  def __repr__(self):
+    return f"Invoice({self.client}, {self.total})"
+
+
+inv = Invoice('Google', 500)
+print(str(inv))
+print(repr(inv))
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>PY invoice.py
+Invoice from Google for 500
+Invoice(Google, 500)
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+
+
+How to Build a Custom Iterator Class in Python
+
+class Lineup:
+
+    def __init__(self, players):
+        self.players = players
+        self.last_player_index = (len(self.players) - 1)
+
+    def __iter__(self):
+        self.n = 0
+        return self
+
+    def get_player(self, n):
+        return self.players[n]
+
+    def __next__(self):
+        if self.n < self.last_player_index:
+            player = self.get_player(self.n)
+            self.n += 1
+            return player
+        elif self.n == self.last_player_index:
+            player = self.get_player(self.n)
+            self.n = 0
+            return player
+
+
+astros = [
+  'Springer',
+  'Bregman',
+  'Altuve',
+  'Correa',
+  'Reddick',
+  'Gonzalez',
+  'McCann',
+  'Davis',
+  'Tucker'
+]
+
+astros_lineup = Lineup(astros)
+process = iter(astros_lineup)
+
+print(next(process))
+print(next(process))
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Springer
+Bregman
+>>>
+
+
+Overview of Iterators vs Generators in Python
+
+class InfiniteLineup:
+    def __init__(self, players):
+        self.players = players
+
+    def lineup(self):
+        lineup_max = len(self.players)
+        idx = 0
+
+        while True:
+            if idx < lineup_max:
+                yield self.players[idx]
+            else:
+                idx = 0
+                yield self.players[idx]
+
+            idx += 1
+
+    def __repr__(self):
+        return f'InfiniteLineup({self.players})'
+
+    def __str__(self):
+        return f"InfiniteLineup with the players: {', '.join(self.players)}"
+
+
+astros = [
+  'Springer',
+  'Bregman',
+  'Altuve',
+  'Correa',
+  'Reddick',
+  'Gonzalez',
+  'McCann',
+  'Davis',
+  'Tucker'
+]
+
+full_lineup = InfiniteLineup(astros)
+astros_lineup = full_lineup.lineup()
+
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+print(next(astros_lineup))
+
+print(repr(full_lineup))
+
+print(str(full_lineup))
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+Springer
+Bregman
+Altuve
+Correa
+Reddick
+Gonzalez
+McCann
+Davis
+Tucker
+Springer
+Bregman
+Altuve
+InfiniteLineup(['Springer', 'Bregman', 'Altuve', 'Correa', 'Reddick', 'Gonzalez', 'McCann', 'Davis', 'Tucker'])
+InfiniteLineup with the players: Springer, Bregman, Altuve, Correa, Reddick, Gonzalez, McCann, Davis, Tucker
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+
+
+
+Class vs Instance Attributes in Python
+
+What I mean by that is if I were to create a class here and I'll call it class website. And inside of here, 
+I'm going to have a Dunder init constructor.
+
+class Website:
+  def __init__(self, title):
+    self.title = title
+
+
+ws = Website('My Website Title')
+print(ws.__dict__)
+
+ws_two = Website('My Second Title')
+print(ws_two.__dict__)
+
+
+class DifferentWebsite:
+  title = 'My Class Title'
+
+dw = DifferentWebsite()
+print(dw.title)
+
+dw_two = DifferentWebsite()
+print(dw_two.title)
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+{'title': 'My Website Title'}
+{'title': 'My Second Title'}
+My Class Title
+My Class Title
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>pyinvo
+'pyinvo' is not recognized as an internal or external command,
+operable program or batch file.
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+{}
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+My Class Title
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+My Class Title
+My Class Title
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+
+
+
+Introduction to Inheritance in Python
+
+One of the fundamental tenants of object-oriented programming in any language is the 
+concept of inheritance. At a high level inheritance is the ability to create 
+specialized versions of classes.
+
+class User:
+  def __init__(self, email, first_name, last_name):
+    self.email = email
+    self.first_name = first_name
+    self.last_name = last_name
+
+  def greeting(self):
+    return f'Hi {self.first_name} {self.last_name}'
+
+class AdminUser(User):
+  def active_users(self):
+    return '500'
+
+
+tiffany = AdminUser('tiffany@devcamp.com', 'Tiffany', 'Hudgens')
+
+kristine = User('kristine@devcamp.com', 'Kristine', 'Hudgens')
+
+print(tiffany.active_users())
+print(tiffany.greeting())
+print(kristine.active_users())
+
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+500
+Hi Tiffany Hudgens
+Traceback (most recent call last):
+  File "invoice.py", line 21, in <module>
+    print(kristine.active_users())
+AttributeError: 'User' object has no attribute 'active_users'
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+class User:
+  def __init__(self, email, first_name, last_name):
+    self.email = email
+    self.first_name = first_name
+    self.last_name = last_name
+
+  def greeting(self):
+    return f'Hi {self.first_name} {self.last_name}'
+
+  class AdminUser(User):
+      def active_users(self):
+          return '500'
+
+chantelle = AdminUser('elenachantelle@devcamp.com', 'chantelle', 'leany')
+
+elena = User('elena711@devcamp.com', 'elena', 'leany')
+
+print(chantelle.active_users())
+print(chantelle.greeting())
+print(elena.active_users())
+>>>>
+
+
+Using Polymorphism to Build an HTML Generator in Python
+
+
+class Html:
+    def __init__(self, content):
+        self.content = content
+
+    def render(self):             
+        raise NotImplementedError("Subclass must implement render method")
+
+
+class Heading(Html):
+    def render(self):
+        return f'<h1>{self.content}</h1>'
+
+
+class Div(Html):
+    def render(self):
+        return f'<div>{self.content}</div>'
+
+
+tags = [Div('Some content'), Heading('My Amazing Heading'), Div('Another div')]
+
+for tag in tags:
+    print(str(tag) + ': ' + tag.render())
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+<__main__.Div object at 0x000001B32E9AB580>: <div>Some content</div>
+<__main__.Heading object at 0x000001B32E9AB9D0>: <h1>My Amazing Heading</h1>
+<__main__.Div object at 0x000001B330794DC0>: <div>Another div</div>
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>>
+class Html:
+    def __init__(self, content):
+        self.content = content
+
+    def render(self):
+        raise NotImplementedError('Subclass must implement render method')
+
+
+class Heading(Html):
+    def render(self):
+        return f'<h1>{self.content}</h1>'
+
+
+class Div(Html):
+    def render(self):
+        return f'<div>{self.content}</div>'
+
+tags = [
+		Div('Some content'),
+		Heading('Some big heading'),
+		Div('Another div')
+		]
+
+for tag in tags:
+	print(tag.render())
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+<div>Some content</div>
+<h1>Some big heading</h1>
+<div>Another div</div>
+>>>
+
+
+Building Polymorphic Functions in Python
+
+class Heading:
+    def __init__(self, content):
+      self.content = content
+
+    def render(self):
+      return f'<h1>{self.content}</h1>'
+
+class Div:
+  def __init__(self, content):
+    self.content = content
+
+  def render(self):
+    return f'<div>{self.content}</div>'
+
+div_one = Div('Some content')
+heading = Heading('My Amazing Heading')
+div_two = Div('Another div')
+
+def html_render(tag_object):
+  print(tag_object.render())
+
+html_render(div_one)
+html_render(div_two)
+html_render(heading)
+>>>
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>py invoice.py
+<div>Some content</div>
+<div>Another div</div>
+<h1>My Amazing Heading</h1>
+
+(python-env-LRSWJ3mP) C:\Users\elena\OneDrive\Documents\python-env>
+>>>
+
+
+
+
+
+
+
+

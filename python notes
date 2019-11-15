@@ -1,0 +1,921 @@
+Build an HTML Heading Generator Function in Python
+
+"""
+heading_generator(title, heading_type)
+heading_generator('Greeting', '1')
+<h3>Greeting</h3>
+
+heading_generator('Hi there', '3')
+<h3>Hi there</h3>
+"""
+
+def heading_generator(title, heading_type):
+    return f'<h{heading_type}>{title}</h{heading_type}>'
+
+print(heading_generator('Greeting!', '1'))
+
+print(heading_generator('Hi there', '3'))
+>>>
+<h1>Greeting!</h1>
+<h3>Hi there</h3>
+>>>
+
+
+Overview of Python Conditionals
+
+# Single condition
+age = 25
+
+if age < 25:
+  print(f"I'm sorry, you need to be at least 25 years old")
+
+# if/else
+age = 55
+
+if age < 25:
+  print(f"I'm sorry, {age} is under 25 years old")
+else:
+  print(f"You're good to go, {age} fits in the range to rent a car")
+
+# if/elif/else
+age = 55
+
+if age < 25:
+  print(f"I'm sorry, {age} is under 25 years old")
+elif age > 100:
+  print(f"I'm sorry, {age} is over 100 years old")
+else:
+  print(f"You're good to go, {age} fits in the range to rent a car")
+
+
+
+  How to Use the Ternary Operator in Python Conditionals
+
+  role = 'guest'
+
+auth = 'can access' if role == 'admin' else 'cannot access'
+
+if role == 'admin':
+  auth = 'can access'
+else:
+  auth = 'cannot access'
+
+print(auth)
+>>>
+cannot access
+>>>
+
+
+Full List of Python Conditional Operators
+
+# List of comparison operators
+# == Equality
+# != Inequality //good practice///
+# <> Inequality (deprecated)//// old practice///
+# >  Greater than
+# >= Greater than or equal to
+# < Less than
+# <= Less than or equal to
+
+username = 'jonsnow'
+
+if username == 'jonsnow':
+  print('Welcome Jon')
+else:
+  print('You shall not pass!')
+
+age = 25
+
+if age <= 25:
+  print(f"I'm sorry, you need to be at least 25 years old")
+
+
+
+How to Check if a Value is Included in a Python String or List
+
+sentence = 'The quick brown fox jumped over the lazy Dog'
+word = 'dog'
+
+if word.lower() in sentence.lower():
+  print('The word is in the sentence')
+else:
+  print('The word is not in the sentence')
+
+
+
+nums = [1, 2, 3, 4]
+
+if 3 in nums:
+  print('The number was found')
+else:
+  print('The number was not found')
+
+
+
+How to Build Compound Conditionals in Python
+
+username = 'jonsnow'
+email = 'jon@snow.com'
+password = 'thenorth'
+
+if username == 'jonsnow' and password == 'thenorth':
+  print('Access permitted')
+else:
+  print('Not allowed')
+
+
+if (username == 'jonsnow' or email == 'jon@snow.com') and password == 'thenorth':
+  print('Access permitted')
+else:
+  print('Not allowed')
+
+
+if username == 'jonsnow' or password == 'thenorth':
+  print('Access permitted')
+else:
+  print('Not allowed')
+
+
+logged_in = True
+standard_user = False
+
+if logged_in and not standard_user:
+  print('You can access the admin dashboard')
+else:
+  print('You can only access the standard dashboard')
+
+
+BASIC SYNTAX FOR CREATING PYTHON FUNCTIONS
+
+def auth(email, password):
+    if email == 'elenachantelle@gmail.com' and password == 'secret':
+        print('authorized')
+    else:
+        print('not authorized')
+
+
+auth('elenachantelle@gmail.com', 'secret')
+>>>
+authorized
+>>>
+
+What Does it Mean to Return a Value from a Python Function?
+
+def full_name(first, last):
+  return f'{first} {last}'
+
+
+kristine = full_name('Kristine', 'Hudgens')
+
+def greeting(name):
+  print(f'Hi {name}!')
+
+
+greeting(kristine)
+>>>
+Hi Kristine Hudgens!
+>>>
+
+
+How to Nest Functions in Parent Functions in Python
+
+def greeting(first, last):
+  def full_name():
+    return f'{first} {last}'
+
+  print(f'Hi {full_name()}!')
+
+
+greeting('Kristine', 'Hudgens')
+>>>
+Hi Kristine Hudgens!
+>>>
+
+def saludo(nombre, apellido):
+  def nombre_completo():
+    return f'{nombre} {apellido}'
+
+  print(f'Hola {nombre_completo()}!')
+
+
+saludo('chantelle', 'leany')
+>>>
+Hola chantelle leany!
+>>>
+
+
+
+Guide to Default Arguments in Python Functions
+
+def greeting(name = 'Guest'):
+  print(f'Hi {name}!')
+
+greeting()
+greeting('Kristine')
+
+# Nope
+def some_function(collection = []):
+  collection.append(1)
+  print(id(collection))
+  return collection
+
+
+print(some_function())
+print(some_function())
+>>>
+Hi Guest!
+Hi Kristine!
+139949253832784
+[1]
+139949253832784
+[1, 1]
+>>>
+
+def saludo(nombre = 'Reina'):
+  print(f'Hola {nombre}!')
+
+saludo()
+saludo('chantelle')
+>>>
+Hola Reina!
+Hola chantelle!
+>>>
+
+
+How to Utilize Named Function Arguments in Python
+
+def full_name(first, last):
+  print(f'{first} {last}')
+
+
+full_name('Kristine', 'Hudgens')
+full_name(first = 'Kristine', last = 'Hudgens')
+full_name(last = 'Hudgens', first = 'Kristine')
+>>>
+Kristine Hudgens
+Kristine Hudgens
+Kristine Hudgens
+>>>
+
+def nombre_completo(nombre, apellido):
+  print(f'{nombre} {apellido}')
+
+
+nombre_completo('chantelle', 'leany')
+nombre_completo(nombre = 'chantelle', apellido = 'leany')
+nombre_completo(apellido = 'leany', nombre = 'chantelle')
+>>>
+chantelle leany
+chantelle leany
+chantelle leany
+>>>
+
+
+Guide to Function Argument Unpacking in Python
+
+def greeting(*args):
+  print('Hi ' + ' '.join(args))
+
+
+greeting('Kristine', 'M', 'Hudgens')
+greeting('Tiffany', 'Hudgens')
+
+
+def greeting(*names):
+  print('Hi ' + ' '.join(names))
+
+
+greeting('Kristine', 'M', 'Hudgens')
+greeting('Tiffany', 'Hudgens')
+
+
+def greeting(time_of_day, *args):
+  print(f"Hi {' '.join(args)}, I hope that you're having a good {time_of_day}")
+
+
+greeting('Afternoon', 'Kristine', 'M', 'Hudgens')
+greeting('Morning', 'Tiffany', 'Hudgens')
+>>>
+Hi Kristine M Hudgens
+Hi Tiffany Hudgens
+Hi Kristine M Hudgens
+Hi Tiffany Hudgens
+Hi Kristine M Hudgens, I hope that you're having a good Afternoon
+Hi Tiffany Hudgens, I hope that you're having a good Morning
+>>>
+
+
+/// def = first argument, '*' = everything else. ****
+/// '*' = nreservered key word to add whats left****
+def saludos(*args):
+  print('Hola ' + ' '.join(args))
+
+
+saludos('elena', 'c', 'leany')
+saludos('chantelle', 'leany')
+
+
+def saludos(*nombres):
+  print('Hola ' + ' '.join(nombres))
+
+
+saludos('alondra', 'i', 'villaobos')
+saludos('carolina', 'villalobos')
+
+
+def saludos(tiempo_del_dia, *args):
+  print(f"Hola {' '.join(args)}, Buenas {tiempo_del_dia}")
+
+
+saludos('tardes', 'rodrigo', 'm', 'villalobos')
+saludos('dias', 'kendra', 'villalobos')
+>>>
+Hola elena c leany
+Hola chantelle leany
+Hola alondra i villaobos
+Hola carolina villalobos
+Hola rodrigo M villalobos, Buenas tardesHola kendra villalobos, Buenas dias
+>>>
+
+
+Overview of Keyword Arguments in Python Functions
+/// **kwargs is a common variable, not a kew word ///
+
+def greeting(**kwargs):
+  print(kwargs)
+
+
+greeting()
+greeting(first = 'Kristine', last = 'Hudgens')
+
+def greeting(**kwargs):
+  if kwargs:
+    print(f"Hi {kwargs['first']} {kwargs['last']}, have a great day!")
+  else:
+    print('Hi Guest!')
+
+
+greeting()
+greeting(first = 'Kristine', last = 'Hudgens')
+>>>
+{}
+{'first': 'Kristine', 'last': 'Hudgens'}
+Hi Guest!
+Hi Kristine Hudgens, have a great day!
+>>>
+
+
+
+How to Combine All Argument Types in a Single Python Function
+
+def greeting(time_of_day, *args, **kwargs):
+  print(f"Hi {' '.join(args)}, I hope that you're having a good {time_of_day}.")
+
+  if kwargs:
+    print('Your tasks for the day are:')
+    for key, val in kwargs.items():
+      print(f'{key} -> {val}')
+
+
+greeting('Morning',
+         'Kristine', 'Hudgens',
+         first = 'Empty dishwasher',
+         second = 'Take pupper out',
+         third = 'math homework')
+         
+>>>
+Hi Kristine Hudgens, I hope that you're having a good Morning.
+Your tasks for the day are:
+first -> Empty dishwasher
+second -> Take pupper out
+third -> math homework
+>>>
+
+def saludos(tiempo_del_dia, *args, **kwargs):
+  print(f"Hola {' '.join(args)}, Te deseo un excelete {tiempo_del_dia}.")
+
+  if kwargs:
+    print('Tus tareas para el dia de hoy:')
+    for key, val in kwargs.items():
+      print(f'{key} -> {val}')
+
+
+saludos('dia',
+         'Alondra', 'Villalobos',
+         primero = 'lava las trastes',
+         segundo = 'aguarda la ropa lavada',
+         tercero = 'aienda los mascotas')
+>>>
+Hola Alondra Villalobos, Te deseo un excelete dia.
+Tus tareas para el dia de hoy:
+primero -> lava las trastes
+segundo -> aguarda la ropa lavada
+tercero -> aienda los mascotas
+>>>
+
+
+
+Guide to Python Lambdas
+///lambda only returns values
+a different kind of function and it is called a lambda most modern and general 
+purpose programming languages have a lambda type of construct. 
+
+If you've never heard of a lambda, essentially what it is, is a tool that allows 
+you to wrap up a function. Usually, a smaller function and then easily pass it to 
+other functions. Now functions inside a python are what are called first-class 
+citizens which means that you can treat a function like any type of object.
+
+And so when we're working with Lambda's what we can do is wrap up some behavior, 
+usually pretty small behavior and then pass it to other functions. So they are 
+very mobile easy to use if you want one way of thinking about them you can take 
+the perspective that a lambda is a very similar almost to a variable where you 
+can pass in instead of some basic kind of values such as a string or a dictionary 
+or something like that.
+
+
+full_name = lambda first, last: f'{first} {last}'
+
+
+def greeting(name):
+  print(f'Hi there {name}')
+
+
+greeting(full_name('Kristine', 'Hudgens'))
+>>>
+Hi there Kristine Hudgens
+>>>
+
+
+///Solution to FizzBuzz in Python
+
+"""
+Write a program that prints the numbers from 1 to 100.
+But for multiples of three print “Fizz” instead of the
+number and for the multiples of five print “Buzz”. For
+numbers which are multiples of both three and five print
+“FizzBuzz”.
+
+function
+looping
+Conditionals
+math operators
+"""
+///function///
+def fizz_buzz(max_num):
+///looping///
+  for num in range(1, max_num + 1):
+  ///conditionals///math operators///
+    if num % 3 == 0 and num % 5 == 0:
+      print('FizzBuzz')
+    elif num % 5 == 0:
+      print('Buzz')
+    elif num % 3 == 0:
+      print('Fizz')
+    else:
+      print(num)
+
+
+fizz_buzz(50)
+>>>
+1
+2
+Fizz
+4
+BuzzFizz
+7
+8Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+Fizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+28
+29
+FizzBuzz
+31
+32
+Fizz
+34
+Buzz
+Fizz
+37
+38
+Fizz
+Buzz
+41
+Fizz
+43
+44
+FizzBuzz
+46
+47
+Fizz
+49
+Buzz
+>>>
+
+
+def this_that(max_num):
+  for num in range(2, max_num + 1):
+    if num % 2 == 0 and num % 4 == 0:
+      print('ThisThat')
+    elif num % 2 == 0:
+      print('This')
+    elif num % 4 == 0:
+      print('That')
+    else:
+      print(num)
+
+
+this_that(50)
+>>>
+This
+3
+ThisThat
+5
+This
+7
+ThisThat
+9
+This
+11
+ThisThat
+13
+This
+15
+ThisThat
+17
+This
+19
+ThisThat
+21
+This
+23
+ThisThat
+25
+This
+27
+ThisThat
+29
+This
+31
+ThisThat
+33
+This
+35
+ThisThat
+37
+This
+39
+ThisThat
+41
+This
+43
+ThisThat
+45
+This
+47
+ThisThat
+49
+This
+>>>
+
+
+Remove the First and Last Element from a Python List
+
+Learn more or give us feedback
+def remove_first_and_last(list_to_clean):
+  _, *content, _ = list_to_clean
+  return content
+
+
+html = ['<h1>', 'My content', '</h1>']
+
+print(remove_first_and_last(html))
+
+other_content_to_clean = ['', 'My content', 'Something else', '/']
+
+print(remove_first_and_last(other_content_to_clean))
+
+"""
+remove_first_and_last(list_to_clean)
+
+html = ['<h1>', 'Some content', '</h1>']
+
+remove_first_and_last(htmal)
+=> ['some content']
+
+html_2 = ['<h1>', 'Some content', 'more', '</h1>']
+
+remove_first_and_last(html_2)
+=> ['some content', 'more']
+
+one, *two, three = [1, 2, 3, 45, 6]
+If you do not know what globbing is, what it allows you to do, 
+I'll come down here and write it in a comment. So imagine that 
+you have some kind of a list, you could have 1, 2, and 3 in the 
+list you have the ability because you can perform tasks such as destructuring. 
+You have the ability to grab these elements so you could say 1, 2, and 3 and 
+then what you would get is the integer 1 would be stored in the one variable, 
+integer two in the 2, and the three would be in the 3.
+
+But now if you had more than these elements so if you had 3 4 and 5 what you 
+can do is right here in this second variable you can put an asterix right in 
+front of it and what's going to happen is it is going to glob everything in the middle. 
+So one is still going to grab the very first element in the list and then 3 is going 
+to grab the very last element. In this case, it be 5 and then the this what we have
+ here in the center, this 2 variable is going to actually be a list.
+
+We can test this out in the REPL just in case you don't believe me. Lets say 
+python and I'm going to do exactly what we just did. So say one, two, and then three
+place in our variables here and now one is equal to 1, two is equal to 2, and three 
+is equal to 3. Now if we want to extend this a little bit we can say 1 and then put our 
+glob of 2 and then 3 and then we can put any number of items just like this.
+"""
+
+
+def remove_first_and_last(list_to_clean):
+    _, *content, _ = list_to_clean
+    return content
+
+
+html_2 = ['<h1>', 'Some content', 'more', '</h1>']
+
+print(remove_first_and_last(html_2))
+>>>
+['Some content', 'more']
+>>>
+
+
+
+How to Create a Custom Module and Import It In the Python Repl
+
+import math
+
+math.sqrt(4)
+
+
+# Place in file helper.py
+def greeting(first, last):
+  return f'Hi {first} {last}!'
+
+# Call from repl
+import helper
+
+helper.greeting('Kristine', 'Hudgens')
+
+
+
+///terminal///
+def saludos(nombre, apellido):
+    return f'Hola {nombre} {apellido}'
+
+
+# print(saludos('chantelle', 'leany'))
+
+Microsoft Windows [Version 10.0.18362.418]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\elena\OneDrive\Documents\Python>cd python_import
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py helper.py
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py
+Python 3.8.0 (tags/v3.8.0:fa919fd, Oct 14 2019, 19:37:50) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import helper
+>>> helper.saludos('chantelle', 'leany')
+'Hola chantelle leany'
+>>>
+
+
+
+
+
+How to Import a Custom Python Module into Another File
+
+import sys
+sys.path.insert(0, './libs')
+import helper
+
+def render():
+    print(helper.saludos('chantelle', 'leany'))
+
+
+render()
+
+Microsoft Windows [Version 10.0.18362.418]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\elena\OneDrive\Documents\Python>cd python_import
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>mkdir libs
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>mv helper.py libs/helper.py
+'mv' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>
+
+
+
+How to Import a Single Function from a Python Module
+
+import sys
+sys.path.insert(0, './libs')
+from helper import saludos
+
+def render():
+    print(saludos('chantelle', 'leany'))
+
+
+render()
+
+Microsoft Windows [Version 10.0.18362.418]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\elena\OneDrive\Documents\Python>cd python_import
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>mkdir libs
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>mv helper.py libs/helper.py
+'mv' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Traceback (most recent call last):
+  File "main.py", line 9, in <module>
+    render()
+  File "main.py", line 6, in render
+    print(helper.saludos('chantelle', 'leany'))
+NameError: name 'helper' is not defined
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Traceback (most recent call last):
+  File "main.py", line 9, in <module>
+    render()
+  File "main.py", line 6, in render
+    print(helper.saludos('chantelle', 'leany'))
+NameError: name 'helper' is not defined
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>
+
+
+
+
+
+How to Import a Module and Assign an Alias in Python
+
+import sys
+sys.path.insert(0, './libs')
+import helper as h
+
+def render():
+    print(h.saludos('chantelle', 'leany'))
+
+
+render()
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>py main.py
+Hola chantelle leany
+
+C:\Users\elena\OneDrive\Documents\Python\python_import>python
+Python 3.7.5 (tags/v3.7.5:5c02a39a0b, Oct 15 2019, 01:31:54) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import math as m
+>>> m.sqrt(4)
+2.0
+>>> 
+
+
+Introduction to the Numpy Package in Python
+
+import numpy as np
+
+num_range = np.arange(16)
+
+num_range
+
+# array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])
+
+num_range.reshape(4, 4)
+
+# array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [12, 13, 14, 15]])
+
+C:\Users\elena\OneDrive\Desktop>python
+Python 3.7.5 (tags/v3.7.5:5c02a39a0b, Oct 15 2019, 01:31:54) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy as np
+>>> num_range = np.arange(16)
+>>> num_range
+array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])
+>>> num_range.reshape(4, 4)
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [12, 13, 14, 15]])
+>>>
+
+
+
+Overview of the Requests Package in Python to Communicate with APIs
+
+import requests
+import pprint
+
+r = requests.get('https://api.dailysmarty.com/posts')
+r.json()
+pprint.pprint(r.json()['posts'][0])
+pprint.pprint(r.json()['posts'][0]['url_for_post'])
+
+
+
+
+
+///IMPORTANT///
+Project Solution: Build a Web Scraper in Python
+i didnt understand how to import libraries,
+beautifulsoup or inflection etc...
+what is perser??
+
+
+import requests
+from bs4 import BeautifulSoup
+from inflection import titleize
+
+def title_generator(links):
+    titles = []
+
+    def post_formatter(url):
+        if 'posts' in url:
+            url = url.split('/')[-1]
+            url = url.replace('-', ' ')
+            url = titleize(url)
+            titles.append(url)
+
+
+    for link in links:
+        post_formatter(link["href"])
+
+
+    return titles
+
+
+r = requests.get('http://www.dailysmarty.com/topics/python')
+soup = BeautifulSoup(r.text, 'html.parser')
+links = soup.find_all('a')
+titles = title_generator(links)
+
+for title in titles:
+    print(title)
+
+
+
+
+Guide to Pipenv for Managing a Python Project's Packages and Environment
+
+
+
+
+
+
+
